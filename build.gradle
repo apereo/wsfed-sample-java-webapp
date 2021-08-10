@@ -1,0 +1,117 @@
+defaultTasks "build", "jettyRunWar"
+
+allprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url 'https://build.shibboleth.net/nexus/content/groups/public' }
+    }
+}
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.gretty:gretty:3.0.6"
+    }
+}
+
+apply plugin: 'war'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: "org.gretty"
+
+war.archiveName("fediz.war")
+dependencies {
+    implementation "org.opensaml:opensaml-core:${project.opensamlVersion}"
+    implementation "org.opensaml:opensaml-profile-api:${project.opensamlVersion}"
+    implementation "org.opensaml:opensaml-saml-api:${project.opensamlVersion}"
+    implementation "org.opensaml:opensaml-xmlsec-api:${project.opensamlVersion}"
+    implementation "org.opensaml:opensaml-xmlsec-impl:${project.opensamlVersion}"
+    implementation "org.opensaml:opensaml-saml-impl:${project.opensamlVersion}"
+    implementation "org.opensaml:opensaml-security-api:${project.opensamlVersion}"
+    implementation "org.opensaml:opensaml-soap-api:${project.opensamlVersion}"
+    implementation "org.opensaml:opensaml-xacml-api:${project.opensamlVersion}"
+    implementation "org.opensaml:opensaml-xacml-saml-api:${project.opensamlVersion}"
+    implementation "org.opensaml:opensaml-xacml-saml-impl:${project.opensamlVersion}"
+    implementation "org.opensaml:opensaml-security-impl:${project.opensamlVersion}"
+    implementation "org.opensaml:opensaml-xacml-impl:${project.opensamlVersion}"
+
+    implementation "org.slf4j:slf4j-api:${project.slf4jVersion}"
+    implementation "org.slf4j:slf4j-log4j12:${project.slf4jVersion}"
+    implementation "org.slf4j:jcl-over-slf4j:${project.slf4jVersion}"
+
+    implementation "org.apache.cxf.fediz:fediz-core:${project.fedizVersion}"
+    implementation "org.apache.cxf.fediz:fediz-spring:${project.fedizVersion}"
+
+    implementation "org.apache.wss4j:wss4j-ws-security-common:${project.wss4jVersion}"
+    implementation "org.apache.wss4j:wss4j-ws-security-dom:${project.wss4jVersion}"
+
+    implementation "org.springframework:spring-web:${project.springVersion}"
+    implementation "org.springframework:spring-core:${project.springVersion}"
+    implementation "org.springframework:spring-beans:${project.springVersion}"
+    implementation "org.springframework:spring-context:${project.springVersion}"
+    implementation "org.springframework:spring-aop:${project.springVersion}"
+    implementation "org.springframework:spring-expression:${project.springVersion}"
+
+    implementation "org.springframework.security:spring-security-core:${project.springSecurityVersion}"
+    implementation "org.springframework.security:spring-security-web:${project.springSecurityVersion}"
+    implementation "org.springframework.security:spring-security-config:${project.springSecurityVersion}"
+
+    implementation 'log4j:log4j:1.2.17'
+    implementation 'joda-time:joda-time:2.7'
+    implementation 'org.jasypt:jasypt:1.9.3'
+    implementation 'net.sf.ehcache:ehcache:2.10.9.2'
+    implementation 'org.codehaus.woodstox:woodstox-core-asl:4.4.1'
+}
+
+configurations {
+    grettyRunnerJetty9 {
+//        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//            if (details.requested.group == 'org.ow2.asm') {
+//                details.useVersion('5.0.3')
+//            }
+//            if (details.requested.group == 'org.glassfish'
+//                    && details.requested.name == 'javax.el') {
+//                details.useVersion('3.0.0')
+//            }
+//        }
+    }
+}
+
+war {
+    webInf { from "${projectDir}/WEB-INF" }
+    from "${projectDir}/index.html"
+}
+
+List<String> programArgs = ["-Dorg.eclipse.jetty.annotations.maxWait=120"]
+gretty {
+    System.properties.each {
+        programArgs.add("-D${it.key}=${it.value}")
+    }
+    if (System.getProperty("debug") != null) {
+        programArgs.add("-Xdebug")
+        programArgs.add("-Xrunjdwp:transport=dt_socket,address=5008,server=y,suspend=n")
+    }
+    logger.info("Program arguments: " + programArgs)
+
+    jvmArgs = programArgs
+    scanInterval = 5
+    servletContainer = 'jetty9.4'
+    contextPath = '/fediz'
+    httpPort = 8076
+
+    def path = System.getProperty("sp.sslKeystorePath", "/etc/cas/thekeystore")
+    if (path != null && new java.io.File(path).exists()) {
+        httpsEnabled = true
+        httpsPort = 9876
+        sslKeyStorePath = path
+        sslKeyStorePassword = System.getProperty("sp.sslKeystorePassword", "changeit")
+        sslTrustStorePath = path
+        sslKeyStorePassword = System.getProperty("sp.sslKeystorePassword", "changeit")
+    }
+}
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FedizConfig>
+    <contextConfig name="/fediz">
+        <audienceUris>
+            <audienceItem>urn:org:apereo:cas:ws:idp:realm-CAS</audienceItem>
+        </audienceUris>
+        <certificateStores>
+            <trustManager>
+                <keyStore file="ststrust.jks" password="storepass" type="JKS" />
+            </trustManager>
+        </certificateStores>
+        <trustedIssuers>
+            <issuer certificateValidation="PeerTrust" />
+        </trustedIssuers>
+        <maximumClockSkew>1000</maximumClockSkew>
+        <protocol xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:type="federationProtocolType" version="1.0.0">
+            <realm>urn:org:apereo:cas:ws:idp:realm-CAS</realm>
+            <issuer>https://localhost:8443/cas/ws/idp/federation</issuer>
+            <roleDelimiter>,</roleDelimiter>
+            <roleURI>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/role</roleURI>
+            <reply>/j_spring_fediz_security_check</reply>
+            <claimTypesRequested>
+                <claimType type="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/role" optional="false" />
+				<claimType type="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname" optional="true" />
+				<claimType type="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname" optional="true" />
+				<claimType type="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress" optional="false" />
+            </claimTypesRequested>
+        </protocol>
+    </contextConfig>
+</FedizConfig>
+

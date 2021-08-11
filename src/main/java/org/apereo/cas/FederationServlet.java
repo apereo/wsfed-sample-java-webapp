@@ -58,7 +58,7 @@ public class FederationServlet extends HttpServlet {
             }
             out.println("</ul>");
         } else {
-            out.println("Principal is not instance of FedizPrincipal");
+            out.println("Principal is not instance of FedizPrincipal: " + p);
         }
 
         Element el = SecurityTokenThreadLocal.getToken();

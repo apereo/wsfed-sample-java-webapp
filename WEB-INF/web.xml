@@ -56,7 +56,7 @@
 
     <servlet>
         <servlet-name>FederationServlet</servlet-name>
-        <servlet-class>org.apache.cxf.fediz.example.FederationServlet</servlet-class>
+        <servlet-class>org.apereo.cas.FederationServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

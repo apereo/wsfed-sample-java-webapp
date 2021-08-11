@@ -69,9 +69,9 @@ public class FederationServlet extends HttpServlet {
                 transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
                 StringWriter token = new StringWriter();
                 transformer.transform(new DOMSource(el), new StreamResult(token));
-                out.print("<span id='assertion'>");
+                out.print("<pre id='assertion'>");
                 out.println(StringEscapeUtils.escapeXml11(token.toString()));
-                out.print("<span id='assertion'>");
+                out.print("</pre>");
             } catch (Exception ex) {
                 out.println("Failed to transform cached element to string: " + ex.toString());
                 ex.printStackTrace();

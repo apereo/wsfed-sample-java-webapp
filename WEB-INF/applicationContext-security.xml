@@ -34,6 +34,7 @@
         <sec:intercept-url pattern="/secure/user/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_MANAGER')" />
         <sec:custom-filter ref="federationFilter" after="BASIC_AUTH_FILTER" />
         <sec:session-management session-authentication-strategy-ref="sas" />
+        <sec:csrf disabled="true"/>
     </sec:http>
     
     <sec:authentication-manager alias="authManager">
@@ -69,4 +70,3 @@
     <bean id="sas"
         class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" />
 </beans>
-

@@ -53,8 +53,10 @@ public class FederationServlet extends HttpServlet {
             out.println("<br><b><span id='claims'>Claims</span></b>");
             ClaimCollection claims = fp.getClaims();
             out.println("<ul id='listOfClaims'>");
+            int count = 0;
             for (Claim c : claims) {
-                out.println("<li>" + c.getClaimType().toString().trim() + ":" + c.getValue() + "</li>");
+                out.println("<li id='claim" + count + "'>" + c.getClaimType().toString().trim() + ":" + c.getValue() + "</li>");
+                count++;
             }
             out.println("</ul>");
         } else {

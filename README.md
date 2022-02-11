@@ -4,7 +4,7 @@ This is a sample application that acts as a WS Federation client using Apache Fe
 
 ## Build
    
-You will need JDK 1.8.
+You will need JDK 11.
 
 ```bash
 ./gradlew clean build 

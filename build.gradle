@@ -43,6 +43,7 @@ dependencies {
     implementation "org.slf4j:slf4j-api:${project.slf4jVersion}"
     implementation "org.slf4j:slf4j-log4j12:${project.slf4jVersion}"
     implementation "org.slf4j:jcl-over-slf4j:${project.slf4jVersion}"
+    implementation "org.slf4j:jul-to-slf4j:${project.slf4jVersion}"
 
     implementation "org.apache.cxf.fediz:fediz-core:${project.fedizVersion}"
     implementation "org.apache.cxf.fediz:fediz-spring:${project.fedizVersion}"
@@ -67,8 +68,9 @@ dependencies {
     implementation 'net.sf.ehcache:ehcache:2.10.9.2'
     implementation 'org.codehaus.woodstox:woodstox-core-asl:4.4.1'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
-    implementation "jakarta.xml.bind:jakarta.xml.bind-api:3.0.1"
-    implementation "org.glassfish.jaxb:jaxb-runtime:3.0.2"
+    implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3"
+    implementation "org.glassfish.jaxb:jaxb-runtime:2.3.6"
+    implementation "se.jiderhamn.classloader-leak-prevention:classloader-leak-prevention-servlet:2.7.0"
 
 }
 
@@ -100,6 +102,7 @@ gretty {
         programArgs.add("-Xdebug")
         programArgs.add("-Xrunjdwp:transport=dt_socket,address=5008,server=y,suspend=n")
     }
+    programArgs.add("-Djava.util.logging.config.file=./src/main/resources/logging.properties")
     logger.info("Program arguments: " + programArgs)
 
     jvmArgs = programArgs

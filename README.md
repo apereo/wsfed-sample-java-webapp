@@ -22,6 +22,6 @@ You will need a keystore at `/etc/cas/thekeystore`.
        
 See:
 
-- `WEB-INF/fediz.xml`
-- `WEB-INF/applicationContext-security.xml`
+- `src/main/webapp/fediz.xml`
+- `src/main/webapp/applicationContext-security.xml`
                                           

@@ -106,6 +106,8 @@ gretty {
     programArgs.add("-Djava.util.logging.config.file=./src/main/resources/logging.properties")
     programArgs.add("--add-opens=java.base/java.lang=ALL-UNNAMED")
     programArgs.add("--add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED")
+    programArgs.add("--add-opens=java.base/java.net=ALL-UNNAMED")
+
     logger.info("Program arguments: " + programArgs)
 
     jvmArgs = programArgs

@@ -15,7 +15,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.gretty:gretty:3.0.7"
+        classpath "org.gretty:gretty:3.0.8"
     }
 }
 
@@ -104,6 +104,8 @@ gretty {
         programArgs.add("-Xrunjdwp:transport=dt_socket,address=5008,server=y,suspend=n")
     }
     programArgs.add("-Djava.util.logging.config.file=./src/main/resources/logging.properties")
+    programArgs.add("--add-opens=java.base/java.lang=ALL-UNNAMED")
+    programArgs.add("--add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED")
     logger.info("Program arguments: " + programArgs)
 
     jvmArgs = programArgs

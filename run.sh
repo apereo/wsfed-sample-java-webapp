@@ -6,3 +6,5 @@ echo "Running Docker container with keystore ${SP_SSL_KEYSTORE_PATH} with passwo
 exec ./gradlew build appStart -x test --no-daemon \
   -Dsp.sslKeystorePath=$SP_SSL_KEYSTORE_PATH \
   -Dsp.sslKeystorePassword=$SP_SSL_KEYSTORE_PASSWORD
+
+  # docker buildx build --push --platform linux/amd64 --tag apereo/fediz-client-webapp .

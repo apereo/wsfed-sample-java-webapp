@@ -108,7 +108,7 @@ gretty {
     programArgs.add("--add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED")
     programArgs.add("--add-opens=java.base/java.net=ALL-UNNAMED")
 
-    logger.info("Program arguments: " + programArgs)
+    println("Program arguments: " + programArgs)
 
     jvmArgs = programArgs
     scanInterval = 5
@@ -125,7 +125,7 @@ gretty {
     if (password == null) {
         password = "changeit"
     }
-
+    println("Using keystore path " + path + " with password " + password)
     if (path != null && new java.io.File(path).exists()) {
         httpsEnabled = true
         httpsPort = 9876
@@ -133,6 +133,8 @@ gretty {
         sslKeyStorePassword = password
         sslTrustStorePath = path
         sslKeyStorePassword = password
+    } else {
+        println("Keystore path " + path + " does not exist. HTTPS is disabled")
     }
 }
 

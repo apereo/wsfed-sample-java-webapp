@@ -9,7 +9,7 @@ ENV SP_SSL_KEYSTORE_PASSWORD "changeit"
 RUN mkdir -p fediz
 COPY ./src fediz/src/
 COPY ./gradle/ fediz/gradle/
-COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties fediz
+COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties ./run.sh fediz
 
 RUN mkdir -p ~/.gradle \
     && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties \
@@ -18,13 +18,12 @@ RUN mkdir -p ~/.gradle \
     && chmod 750 ./gradlew \
     && ./gradlew --version;
 
-
 RUN cd fediz \	
     && ./gradlew clean build --parallel --no-daemon;
 
-EXPOSE 8080 8443
+EXPOSE 8076 9876
 
 ENV PATH $PATH:$JAVA_HOME/bin:.
 
 WORKDIR fediz
-ENTRYPOINT ["./gradlew", "build", "appStart", "-x", "test", "--no-daemon", "-Dsp.sslKeystorePath=$SP_SSL_KEYSTORE_PATH"]
+ENTRYPOINT ["./run.sh"]

@@ -116,14 +116,23 @@ gretty {
     contextPath = '/fediz'
     httpPort = 8076
 
-    def path = System.getProperty("sp.sslKeystorePath", "/etc/cas/thekeystore")
+    def path = System.getProperty("sp.sslKeystorePath", System.getenv("SP_SSL_KEYSTORE_PATH"))
+    if (path == null) {
+        path = "/etc/cas/thekeystore"
+    }
+
+    def password = System.getProperty("sp.sslKeystorePassword", System.getenv("SP_SSL_KEYSTORE_PASSWORD"))
+    if (password == null) {
+        password = "changeit"
+    }
+
     if (path != null && new java.io.File(path).exists()) {
         httpsEnabled = true
         httpsPort = 9876
         sslKeyStorePath = path
-        sslKeyStorePassword = System.getProperty("sp.sslKeystorePassword", "changeit")
+        sslKeyStorePassword = password
         sslTrustStorePath = path
-        sslKeyStorePassword = System.getProperty("sp.sslKeystorePassword", "changeit")
+        sslKeyStorePassword = password
     }
 }
 

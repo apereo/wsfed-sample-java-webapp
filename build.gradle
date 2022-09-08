@@ -70,7 +70,7 @@ dependencies {
     implementation 'org.codehaus.woodstox:woodstox-core-asl:4.4.1'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation "jakarta.xml.bind:jakarta.xml.bind-api:4.0.0"
-    implementation "org.glassfish.jaxb:jaxb-runtime:2.3.6"
+    implementation "org.glassfish.jaxb:jaxb-runtime:4.0.0"
     implementation "se.jiderhamn.classloader-leak-prevention:classloader-leak-prevention-servlet:2.7.0"
 
 }

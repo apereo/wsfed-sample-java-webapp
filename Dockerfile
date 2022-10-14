@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-jdk
+FROM eclipse-temurin:11.0.16_8-jdk
 
 LABEL "Organization"="Apereo"
 LABEL "Description"="Apereo CAS"

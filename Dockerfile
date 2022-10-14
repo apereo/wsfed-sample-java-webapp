@@ -9,7 +9,7 @@ ENV SP_SSL_KEYSTORE_PASSWORD "changeit"
 RUN mkdir -p fediz
 COPY ./src fediz/src/
 COPY ./gradle/ fediz/gradle/
-COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties ./run.sh fediz
+COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties ./run.sh fediz/
 
 RUN mkdir -p ~/.gradle \
     && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties \

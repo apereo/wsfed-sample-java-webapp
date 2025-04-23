@@ -21,7 +21,7 @@ RUN mkdir -p ~/.gradle \
 RUN cd fediz \	
     && ./gradlew clean build --parallel --no-daemon;
 
-EXPOSE 8076 9876
+EXPOSE 5008 8076 9876
 
 ENV PATH $PATH:$JAVA_HOME/bin:.
 
